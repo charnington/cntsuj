@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f7f7f7" />
+  <meta name="description" content="Personal academic website of Chanatip Sujsuntinukul, a mathematics undergraduate at the University of Hong Kong." />
+  <title>Chanatip Sujsuntinukul · Mathematics</title>
+  <!-- The Sarabun font is used for the Thai name. Everything else uses a ChatGPT-like system font. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ═══════════════════════════════════════════════════════════════
+       QUICK STYLE EDITS: Change the colors here, if you like.
+       ═══════════════════════════════════════════════════════════════ */
+    :root {
+      --page: #f7f7f7;       /* ChatGPT-inspired light grey background */
+      --ink: #252525;
+      --muted: #6d6e70;
+      --faint: #909194;
+      --line: #e1e2e2;
+      --accent: #187a68;
+      --accent-wash: #e9f3f0;
+      --card: #ffffff;
+      --font: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--page); color: var(--ink); font: 16px/1.72 var(--font); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; }
+    button { font: inherit; }
+    ::selection { background: #cfebe2; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 3px; }
+
+    .site-header { position: sticky; top: 0; z-index: 50; background: rgba(247,247,247,.94); backdrop-filter: blur(16px); border-bottom: 1px solid var(--line); }
+    .header-inner { max-width: 1092px; margin: 0 auto; padding: 0 44px; min-height: 77px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .wordmark { font-weight: 750; font-size: 21px; letter-spacing: -.075em; text-decoration: none; line-height: 1; }
+    .wordmark .dot { color: var(--accent); }
+    .header-note { font-size: 12px; letter-spacing: .075em; text-transform: uppercase; color: var(--faint); margin-left: 13px; font-weight: 600; }
+    .nav-tabs { display: flex; align-items: center; gap: 30px; align-self: stretch; }
+    .nav-tab { display: inline-flex; align-items: center; position: relative; text-decoration: none; white-space: nowrap; padding: 5px 1px 0; color: var(--muted); font-size: 13.5px; font-weight: 600; transition: color .18s ease; }
+    .nav-tab:hover, .nav-tab[aria-selected="true"] { color: var(--ink); }
+    .nav-tab[aria-selected="true"]::after { content: ""; position: absolute; left: 0; bottom: -1px; height: 2px; right: 0; border-radius: 2px; background: var(--accent); }
+
+    main { max-width: 1092px; margin: 0 auto; padding: 68px 44px 104px; }
+    [hidden] { display: none !important; }
+    .eyebrow { margin: 0 0 13px; text-transform: uppercase; font-size: 11px; font-weight: 750; letter-spacing: .16em; color: var(--accent); }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { margin-bottom: 0; font-size: clamp(35px, 4.3vw, 54px); line-height: 1.16; letter-spacing: -.052em; font-weight: 750; }
+    .thai-name { font-family: "Sarabun", Tahoma, sans-serif; font-weight: 500; font-size: clamp(19px, 2.25vw, 24px); line-height: 1.9; color: #5e6263; margin-top: 8px; }
+    .headline-rule { margin-top: 31px; width: 60px; height: 3px; background: var(--accent); border-radius: 3px; }
+    .intro { display: grid; grid-template-columns: 236px minmax(0,1fr); gap: 47px; margin-top: 44px; align-items: start; }
+    .portrait-wrap { position: relative; width: 236px; height: 236px; }
+    .portrait { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 5px solid #fff; box-shadow: 0 2px 4px rgba(0,0,0,.035), 0 12px 40px rgba(0,0,0,.07); }
+    .portrait-dot { position:absolute; right: 11px; bottom: 16px; width: 18px; height: 18px; border-radius: 50%; background: #9fcbbd; border: 4px solid var(--page); }
+    .intro-copy { max-width: 685px; font-size: 16px; line-height: 1.82; }
+    .intro-copy p { margin-bottom: 18px; }
+    .intro-copy p:last-child { margin-bottom: 0; }
+    .intro-copy a, .research-desc a, .inline-link { text-decoration: underline; text-decoration-color: #a8d3c5; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+    .intro-copy a:hover, .research-desc a:hover, .inline-link:hover { color: var(--accent); }
+    .contact-line { color: #4d5554; }
+    .about-actions { margin: 23px 0 0; display: flex; align-items: center; gap: 17px; flex-wrap: wrap; }
+    .cv-link { background: var(--card); border: 1px solid #d7dcd9; color: var(--ink); border-radius: 11px; display: inline-flex; gap: 10px; align-items: center; padding: 10px 15px; font-size: 13.5px; font-weight: 650; text-decoration: none; box-shadow: 0 1px 2px rgba(0,0,0,.025); transition: border-color .2s, transform .2s, background .2s; }
+    .cv-link:hover { border-color: #a8c6ba; transform: translateY(-1px); background: #fff; }
+    .cv-link svg { width: 17px; height: 17px; flex: none; stroke: var(--accent); }
+    .cv-sub { font-size: 13px; color: var(--muted); }
+
+    /* Four principles at the bottom of the About me page */
+    .axioms { max-width: 865px; margin-top: 72px; padding-top: 35px; border-top: 1px solid var(--line); }
+    .axioms-heading { font-size: 21px; letter-spacing: -.025em; font-weight: 710; margin-bottom: 22px; }
+    .axioms-list { list-style: none; padding: 0; margin: 0; }
+    .axiom { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 20px; padding: 15px 0; border-top: 1px solid var(--line); }
+    .axiom:first-child { border-top: 0; padding-top: 0; }
+    .axiom-label { color: #bd526e; font-size: 13px; font-weight: 750; white-space: nowrap; padding-top: 3px; }
+    .axiom-text { font-size: 15px; line-height: 1.85; color: #45494a; }
+
+    .divider { height: 1px; width: 100%; background: var(--line); margin: 62px 0 47px; }
+    .section-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 30px; flex-wrap: wrap; margin-bottom: 6px; }
+    h2 { font-size: 27px; letter-spacing: -.045em; line-height: 1.28; font-weight: 740; margin-bottom: 0; }
+    .section-index { font-size: 11px; font-weight: 700; color: var(--faint); letter-spacing: .08em; }
+    .research-desc { color: var(--muted); margin: 14px 0 34px; font-size: 14.5px; line-height: 1.85; max-width: 730px; }
+    .research-desc a { color: #394743; font-weight: 650; }
+    .current-work { border-left: 3px solid #badbd0; padding: 3px 0 3px 17px; margin-bottom: 36px; color: #545b59; font-size: 14px; line-height: 1.75; }
+    .current-work strong { color: var(--ink); }
+    .pub-group { margin: 0 0 37px; }
+    .pub-group h3 { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: #777b79; font-weight: 780; margin-bottom: 10px; }
+    .pub-list { list-style: none; counter-reset: pub; margin: 0; padding: 0; }
+    .pub-item { padding: 18px 0 20px; display: grid; grid-template-columns: 34px minmax(0,1fr) 55px; gap: 18px; border-top: 1px solid var(--line); }
+    .pub-list .pub-item:last-child { border-bottom: 1px solid var(--line); }
+    .pub-index { padding-top: 4px; font-size: 11px; color: var(--faint); font-weight: 700; font-variant-numeric: tabular-nums; }
+    .pub-title { font-weight: 685; font-size: 15.5px; letter-spacing: -.013em; line-height: 1.5; margin: 0 0 5px; }
+    .pub-authors { margin: 0 0 3px; font-size: 13.5px; color: #5c6060; line-height: 1.65; }
+    .pub-venue { margin: 0; font-size: 13.5px; color: var(--muted); font-style: italic; }
+    .pub-links { display: inline-flex; gap: 14px; flex-wrap: wrap; margin-top: 8px; }
+    .pub-links a { text-decoration: none; font-size: 12.5px; font-weight: 700; color: var(--accent); border-bottom: 1px solid #c4d8d2; line-height: 1.6; }
+    .pub-links a:hover { color: #0a594a; border-bottom-color: var(--accent); }
+    .pub-year { justify-self: end; font-size: 12px; color: var(--faint); font-weight: 600; padding-top: 3px; font-variant-numeric: tabular-nums; }
+
+    .research-page { margin-top: 49px; }
+    .misc-intro { max-width: 750px; }
+    .misc-intro h1 { max-width: 750px; }
+    .misc-lead { color: var(--muted); margin-top: 21px; font-size: 16px; }
+    .qa-section { margin-top: 59px; max-width: 866px; }
+    .qa-entry { border-top: 1px solid var(--line); padding: 27px 0 31px; display: grid; grid-template-columns: 42px minmax(0,1fr); column-gap: 16px; }
+    .qa-number { font-size: 12px; color: var(--accent); font-weight: 730; padding-top: 5px; font-variant-numeric: tabular-nums; }
+    .qa-entry h2 { font-size: 19px; line-height: 1.4; letter-spacing: -.025em; font-weight: 745; margin: 0 0 11px; }
+    .qa-entry p { font-size: 15.5px; margin: 0; color: #45494a; line-height: 1.9; }
+    .soon { color: var(--faint); font-size: 13px; font-style: italic; padding: 11px 0 30px 58px; }
+
+    footer { border-top: 1px solid var(--line); font-size: 12px; color: var(--faint); }
+    .footer-inner { max-width: 1092px; padding: 24px 44px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+    .footer-inner a { text-decoration-color: #c2cbc8; text-underline-offset: 3px; }
+    .footer-inner a:hover { color: var(--accent); }
+
+    @media (max-width: 720px) {
+      .header-inner { padding: 0 18px; min-height: 68px; gap: 12px; }
+      .header-note { display: none; }
+      .nav-tabs { gap: 14px; }
+      .nav-tab { font-size: 12.4px; }
+      main { padding: 48px 24px 80px; }
+      .intro { grid-template-columns: 1fr; gap: 23px; margin-top: 34px; }
+      .portrait-wrap { width: 178px; height: 178px; }
+      .intro-copy { font-size: 15px; }
+      .divider { margin: 45px 0 35px; }
+      .axioms { margin-top: 52px; padding-top: 29px; }
+      .axiom { grid-template-columns: 1fr; gap: 3px; padding: 14px 0; }
+      .axiom-label { padding-top: 0; }
+      .pub-item { grid-template-columns: 26px minmax(0,1fr); gap: 13px; }
+      .pub-year { display: none; }
+      .pub-title { font-size: 15px; }
+      .research-page { margin-top: 38px; }
+      .qa-section { margin-top: 45px; }
+      .qa-entry { grid-template-columns: 30px 1fr; gap: 8px; }
+      .soon { padding-left: 38px; }
+      .footer-inner { padding: 22px 24px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="#about" class="wordmark" aria-label="Home, About me">cs<span class="dot">.</span></a>
+      <span class="header-note">Mathematics · HKU</span>
+      <nav class="nav-tabs" role="tablist" aria-label="Main navigation">
+        <a class="nav-tab" id="about-tab" role="tab" aria-controls="about" aria-selected="true" href="#about">About me</a>
+        <a class="nav-tab" id="research-tab" role="tab" aria-controls="research" aria-selected="false" href="#research">Research</a>
+        <a class="nav-tab" id="misc-tab" role="tab" aria-controls="miscellaneous" aria-selected="false" href="#miscellaneous">Miscellaneous</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ═══════ ABOUT ME TAB ═══════ -->
+    <section id="about" class="tab-panel" role="tabpanel" aria-labelledby="about-tab">
+      <div class="hero-heading">
+        <p class="eyebrow">Hello, welcome to my corner of the internet.</p>
+        <h1>Chanatip Sujsuntinukul</h1>
+        <div class="thai-name" lang="th">ชนาธิป สัจสันตินุกูล</div>
+        <div class="headline-rule" aria-hidden="true"></div>
+      </div>
+
+      <div class="intro">
+        <div class="portrait-wrap">
+          <img class="portrait" src="profile.jpg" alt="Chanatip by the waterfront at sunset" width="236" height="236" />
+          <span class="portrait-dot" aria-hidden="true"></span>
+        </div>
+        <div class="intro-copy">
+          <p>Welcome to my webpage! I'm a final-year undergraduate mathematics student at the <a href="https://www.hku.hk/" target="_blank" rel="noopener noreferrer">University of Hong Kong</a>.</p>
+          <p>My research interests lie in the ways analysis can be used to explore other areas of mathematics, particularly number theory, probability, and metric geometry. More recently, I've also become interested in how AI is shaping the mathematical community.</p>
+          <p>I enjoy teaching and explaining mathematics. Beyond the subject itself, I believe that learning to tackle mathematical problems helps us develop analytical and logical thinking skills that are valuable well beyond the classroom.</p>
+          <p class="contact-line">Please feel free to reach out if you're interested in collaborating: <a href="mailto:chanatip@connect.hku.hk">chanatip [at] connect.hku.hk</a>.</p>
+          <div class="about-actions">
+            <a class="cv-link" href="Chanatip_Sujsuntinukul_CV_Nov2026.pdf" target="_blank" rel="noopener noreferrer" aria-label="View my curriculum vitae, November 2026 PDF">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h6"/></svg>
+              My CV <span aria-hidden="true">↗</span>
+            </a>
+            <span class="cv-sub">Updated November 2026</span>
+          </div>
+        </div>
+      </div>
+
+      <section class="axioms" aria-labelledby="axioms-heading">
+        <h2 class="axioms-heading" id="axioms-heading">I share Federico Ardila-Mantilla’s axioms.</h2>
+        <ol class="axioms-list">
+          <li class="axiom"><span class="axiom-label">Axiom 1.</span><span class="axiom-text">Mathematical potential is equally present in different groups, irrespective of geographic, demographic, and economic boundaries.</span></li>
+          <li class="axiom"><span class="axiom-label">Axiom 2.</span><span class="axiom-text">Everyone can have joyful, meaningful, and empowering mathematical experiences.</span></li>
+          <li class="axiom"><span class="axiom-label">Axiom 3.</span><span class="axiom-text">Mathematics is a powerful, malleable tool that can be shaped and used differently by various communities to serve their needs.</span></li>
+          <li class="axiom"><span class="axiom-label">Axiom 4.</span><span class="axiom-text">Every student deserves to be treated with dignity and respect.</span></li>
+        </ol>
+      </section>
+
+    </section>
+
+    <!-- ═══════ RESEARCH TAB ═══════ -->
+    <section id="research" class="tab-panel" role="tabpanel" aria-labelledby="research-tab" hidden>
+      <div class="misc-intro">
+        <p class="eyebrow">Mathematics &amp; publications</p>
+        <h1>Research<span style="color:var(--accent)">.</span></h1>
+        <div class="headline-rule" aria-hidden="true"></div>
+      </div>
+
+      <section class="research research-page" aria-labelledby="research-heading">
+        <div class="section-heading">
+          <h2 id="research-heading">Publications</h2>
+          <span class="section-index">01 / PUBLICATIONS</span>
+        </div>
+        <p class="research-desc">You can also find my work on <a href="https://arxiv.org/search/?query=Chanatip+Sujsuntinukul&searchtype=author" target="_blank" rel="noopener noreferrer">arXiv ↗</a> and <a href="https://scholar.google.com/citations?user=rNUGSUsAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">Google Scholar ↗</a>.</p>
+        <div class="current-work"><strong>Currently:</strong> I'm studying questions in analytic and probabilistic number theory, including the limiting behaviour of random multiplicative functions, under the supervision of Prof. Mo Dick Wong.</div>
+
+        <div class="pub-group">
+          <h3>Preprints</h3>
+          <ol class="pub-list">
+            <li class="pub-item">
+              <span class="pub-index">01</span>
+              <div>
+                <p class="pub-title">Exponential bounds for the spherical Blaschke–Lebesgue problem</p>
+                <p class="pub-authors">Abigail Hall, Andriy Prymak, and Chanatip Sujsuntinukul</p>
+                <p class="pub-venue">Preprint, 2026.</p>
+                <div class="pub-links"><a href="https://arxiv.org/abs/2606.30960" target="_blank" rel="noopener noreferrer">arXiv ↗</a></div>
+              </div>
+              <span class="pub-year">2026</span>
+            </li>
+          </ol>
+        </div>
+
+        <div class="pub-group">
+          <h3>Journal articles</h3>
+          <ol class="pub-list">
+            <li class="pub-item">
+              <span class="pub-index">01</span>
+              <div>
+                <p class="pub-title">Asymptotic areas between powers of sine and cosine curves</p>
+                <p class="pub-authors">Atiratch Laoharenoo and Chanatip Sujsuntinukul</p>
+                <p class="pub-venue">Rocky Mountain Journal of Mathematics. Accepted (2026).</p>
+                <div class="pub-links">
+                  <a href="https://arxiv.org/abs/2607.24489" target="_blank" rel="noopener noreferrer">arXiv ↗</a>
+                  <a href="https://projecteuclid.org/journals/rmjm/rocky-mountain-journal-of-mathematics/DownloadAcceptedPapers/260223-Laoharenoo.pdf" target="_blank" rel="noopener noreferrer">Journal ↗</a>
+                </div>
+              </div>
+              <span class="pub-year">2026</span>
+            </li>
+            <li class="pub-item">
+              <span class="pub-index">02</span>
+              <div>
+                <p class="pub-title">Convergence criteria for Frullani-type integrals involving differences of cosines</p>
+                <p class="pub-authors">Atiratch Laoharenoo and Chanatip Sujsuntinukul</p>
+                <p class="pub-venue">Integral Transforms and Special Functions. Accepted (2026).</p>
+                <div class="pub-links">
+                  <a href="https://arxiv.org/abs/2605.26153" target="_blank" rel="noopener noreferrer">arXiv ↗</a>
+                  <a href="https://doi.org/10.1080/10652469.2026.2680679" target="_blank" rel="noopener noreferrer">DOI ↗</a>
+                </div>
+              </div>
+              <span class="pub-year">2026</span>
+            </li>
+            <li class="pub-item">
+              <span class="pub-index">03</span>
+              <div>
+                <p class="pub-title">Variants of the Damascus inequality</p>
+                <p class="pub-authors">Chanatip Sujsuntinukul and Christophe Chesneau</p>
+                <p class="pub-venue">The Ramanujan Journal, 69:68 (2026).</p>
+                <div class="pub-links">
+                  <a href="https://arxiv.org/abs/2601.00916" target="_blank" rel="noopener noreferrer">arXiv ↗</a>
+                  <a href="https://doi.org/10.1007/s11139-026-01345-1" target="_blank" rel="noopener noreferrer">DOI ↗</a>
+                </div>
+              </div>
+              <span class="pub-year">2026</span>
+            </li>
+            <li class="pub-item">
+              <span class="pub-index">04</span>
+              <div>
+                <p class="pub-title">Identities for sums of floor and ceiling functions of rational numbers</p>
+                <p class="pub-authors">Atiratch Laoharenoo and Chanatip Sujsuntinukul</p>
+                <p class="pub-venue">ScienceAsia, 51(4) (2025).</p>
+                <div class="pub-links"><a href="https://doi.org/10.2306/scienceasia1513-1874.2025.058" target="_blank" rel="noopener noreferrer">DOI ↗</a></div>
+              </div>
+              <span class="pub-year">2025</span>
+            </li>
+            <li class="pub-item">
+              <span class="pub-index">05</span>
+              <div>
+                <p class="pub-title">Corrosion inhibition properties and pKa calculations of some common corrosion inhibitors: Quantum chemical simulations</p>
+                <p class="pub-authors">P. Toommakorn, S. Anantachaisophon, P. Sanguanchua, Chanatip Sujsuntinukul, A. Khetubol, and S. J. Turner</p>
+                <p class="pub-venue">Asia-Pacific Journal of Science and Technology, 29(2) (2024).</p>
+                <div class="pub-links"><a href="https://doi.org/10.14456/apst.2024.26" target="_blank" rel="noopener noreferrer">DOI ↗</a></div>
+              </div>
+              <span class="pub-year">2024</span>
+            </li>
+          </ol>
+        </div>
+      </section>
+    </section>
+
+    <!-- ═══════ MISCELLANEOUS TAB. Add more Q&As using the same qa-entry format below. ═══════ -->
+    <section id="miscellaneous" class="tab-panel" role="tabpanel" aria-labelledby="misc-tab" hidden>
+      <div class="misc-intro">
+        <p class="eyebrow">A little more personal</p>
+        <h1>Miscellaneous<span style="color:var(--accent)">.</span></h1>
+        <div class="headline-rule" aria-hidden="true"></div>
+        <p class="misc-lead">A small collection of questions and answers, mostly about life outside research. I'll add more to this page over time.</p>
+      </div>
+
+      <div class="qa-section">
+        <article class="qa-entry">
+          <span class="qa-number">01</span>
+          <div>
+            <h2>Where am I from?</h2>
+            <p>I was born and raised in Nakhon Sawan, Thailand, where I spent the first 15 years of my life. I was then fortunate enough to be admitted to Kamnoetvidya Science Academy, where my passion for mathematics really began to grow. In 2023, I decided to study abroad at HKU—one of the biggest decisions of my life! I've also spent a total of eight months in Canada, first as an exchange student at McGill University and later as a summer research intern at the University of Manitoba.</p>
+          </div>
+        </article>
+        <article class="qa-entry">
+          <span class="qa-number">02</span>
+          <div>
+            <h2>How did I become interested in mathematics?</h2>
+            <p>Well, the answer might sound cliché: it was simply the subject I was good at in school. I remember competing with my friends to see who could do mental arithmetic the fastest. Then, in high school, I started exploring more serious mathematics, like calculus and linear algebra. One question kept coming back to me: <em>Why are the theorems we use actually true?</em> That curiosity eventually led me to pursue a mathematics degree at university.</p>
+          </div>
+        </article>
+        <article class="qa-entry">
+          <span class="qa-number">03</span>
+          <div>
+            <h2>What are my hobbies?</h2>
+            <p>I like watching horror movies (although, ironically, I'm quite easily scared by ghosts), listening to musics, and singing. I also enjoy hiking, trying new food, and spending time with cats and dogs.</p>
+          </div>
+        </article>
+        <p class="soon">More questions to come …</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span>© 2026 Chanatip Sujsuntinukul</span>
+      <span>Made with curiosity & a little HTML. <a href="mailto:chanatip@connect.hku.hk">Say hello ↗</a></span>
+    </div>
+  </footer>
+
+  <script>
+    // This switches between the three tabs. You don't need to edit this part.
+    const panels = {
+      about: document.getElementById('about'),
+      research: document.getElementById('research'),
+      miscellaneous: document.getElementById('miscellaneous')
+    };
+    const tabs = {
+      about: document.getElementById('about-tab'),
+      research: document.getElementById('research-tab'),
+      miscellaneous: document.getElementById('misc-tab')
+    };
+    function showTab() {
+      const requested = location.hash.slice(1);
+      const active = Object.hasOwn(panels, requested) ? requested : 'about';
+      Object.keys(panels).forEach((name) => {
+        const selected = name === active;
+        panels[name].hidden = !selected;
+        tabs[name].setAttribute('aria-selected', String(selected));
+        tabs[name].tabIndex = selected ? 0 : -1;
+      });
+      document.title = (active === 'about' ? 'Chanatip Sujsuntinukul' : (active === 'research' ? 'Research · Chanatip Sujsuntinukul' : 'Miscellaneous · Chanatip Sujsuntinukul')) + ' · Mathematics';
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+    window.addEventListener('hashchange', showTab);
+    document.querySelectorAll('.nav-tab').forEach((tab, index, all) => {
+      tab.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+          event.preventDefault();
+          const step = event.key === 'ArrowRight' ? 1 : -1;
+          const target = all[(index + step + all.length) % all.length];
+          target.focus();
+          target.click();
+        }
+      });
+    });
+    showTab();
+  </script>
+</body>
+</html>
